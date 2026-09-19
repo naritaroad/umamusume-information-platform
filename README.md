@@ -1,465 +1,286 @@
-<div align="center">
-
-# 🥕 賽馬娘資訊平台
-### Uma Musume Information Platform
-
-<p>
-  <img src="https://img.shields.io/badge/版本-0.6.59--alpha-blueviolet?style=for-the-badge" alt="version">
-  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="python">
-  <img src="https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white" alt="django">
-  <img src="https://img.shields.io/badge/Docker-支援-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="docker">
-  <img src="https://img.shields.io/badge/AI-Gemini%20%2B%20Claude-FF6B35?style=for-the-badge" alt="ai">
+<p align="center">
+  <a href="#readme"><img alt="繁體中文" src="https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-c9a027?style=for-the-badge&labelColor=2a1848"></a>
+  <a href="docs/README.en-GB.md"><img alt="English (UK)" src="https://img.shields.io/badge/English%20(UK)-7c4dff?style=for-the-badge&labelColor=2a1848"></a>
 </p>
 
-<p>
-  <strong>以賽馬娘 Pretty Derby 遊戲社群為主題，整合多平台輿情爬蟲、AI 分析報告、<br>LLM Agent、RAG 知識庫與 Discord Bot 的完整公眾輿論分析平台。</strong>
+<p align="center">
+  <img src="docs/assets/hero.svg" alt="Uma Musume Information Platform" width="760">
+</p>
+
+<h1 align="center">賽馬娘資訊平台</h1>
+
+<p align="center">
+  <strong>Uma Musume Information Platform</strong><br>
+  把馬娘社群討論收成可查、可畫、可問的輿情系統。<br>
+  爬蟲進庫、雙模型寫報告、Agent 回答、Discord 每天推播。
+</p>
+
+<p align="center">
+  <img alt="version" src="https://img.shields.io/badge/version-0.6.61--alpha-c9a027?style=flat-square&labelColor=2a1848">
+  <img alt="python" src="https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white">
+  <img alt="django" src="https://img.shields.io/badge/django-5.2%20LTS-092E20?style=flat-square&logo=django&logoColor=white">
+  <img alt="postgres" src="https://img.shields.io/badge/postgres-16-4169E1?style=flat-square&logo=postgresql&logoColor=white">
+  <img alt="docker" src="https://img.shields.io/badge/docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white">
+  <img alt="locale" src="https://img.shields.io/badge/locale-zh--Hant%20%2F%20en--GB-c9a027?style=flat-square&labelColor=2a1848">
+  <img alt="licence" src="https://img.shields.io/badge/licence-MIT-6a35b4?style=flat-square&labelColor=2a1848">
+</p>
+
+<p align="center">
+  <a href="#功能">功能</a> ·
+  <a href="#示範">示範</a> ·
+  <a href="#架構">架構</a> ·
+  <a href="#安裝">安裝</a> ·
+  <a href="#專案結構">結構</a> ·
+  <a href="#貢獻">貢獻</a> ·
+  <a href="#授權">授權</a> ·
+  <a href="docs/README.md">文件索引</a>
 </p>
 
 ---
 
-</div>
+玩家在巴哈、Wiki、新聞與 YouTube 討論卡池與活動，訊息散在六個平台。這個專案把它收進同一套 Django 系統：前台做聲量與情感圖、後台跑 Pipeline、Agent 用站內資料回答、Discord Bot 每天 08:00（台北時間）推播摘要。
 
-## 📋 目錄
+> **現況（0.6.61-alpha）**　本機開發用 SQLite；`docker compose` 走 PostgreSQL 16、Nginx、Gunicorn 與 Discord Bot。根目錄 Django apps 已收入 `app/<module>/`，匯入名稱仍是 `app_*`。
 
-- [專案簡介](#-專案簡介)
-- [功能總覽](#-功能總覽)
-- [技術架構](#-技術架構)
-- [技術選型](#-技術選型)
-- [資料來源](#-資料來源)
-- [路由總表](#-路由總表)
-- [快速啟動](#-快速啟動)
-- [Docker 部署](#-docker-部署)
-- [環境變數設定](#-環境變數設定)
-- [專案結構](#-專案結構)
-- [版本紀錄](#-版本紀錄)
+本文件是**繁體中文**。英式英文對照：[docs/README.en-GB.md](docs/README.en-GB.md)。
 
----
+## 功能
 
-## 🎯 專案簡介
+<table>
+<tr>
+<td width="33%" valign="top">
 
-本平台為**公眾輿論分析（Public Opinion Analysis, POA）**課程期末專案，以**賽馬娘 Pretty Derby** 玩家社群討論作為資料集，建構一套涵蓋完整 AI 應用技術棧的輿情分析系統。
+### 輿情圖表
 
-### 核心目標
+自訂關鍵詞看聲量、共現、正負面折線。熱門詞與角色排行依五類公告（活動／卡池／競賽／系統／其他）出長條圖。首頁有 AI 新聞封面與人氣 PK。
 
-| 層次 | 說明 |
-|------|------|
-| **技術完整性** | 涵蓋 LLM 報告、留言情感分析、Agentic AI、RAG 知識庫、Docker 部署 |
-| **主題一致性** | 全站以馬娘遊戲輿情為核心，資料、分析邏輯與 AI Prompt 均圍繞社群討論 |
+</td>
+<td width="33%" valign="top">
 
-### 平台數據規模
+### AI 報告與 Agent
 
-<div align="center">
+Gemini 3.5 Flash 或 Claude Sonnet 4.6 寫 500 字以上繁中報告。另有 Function Calling 助理、FAISS RAG、LangChain / LangGraph 示範頁，以及語意搜尋 + 資料庫雙工具的 Agentic RAG。
 
-| 📰 資料來源 | 💬 公告筆數 | 🤖 AI 引擎 | ⚡ 更新頻率 | 🎮 分析角色 |
-|:---:|:---:|:---:|:---:|:---:|
-| 6+ 平台 | 1,000+ 筆 | Gemini + Claude | 即時追蹤 | 全馬娘角色 |
+</td>
+<td width="33%" valign="top">
 
-</div>
+### 採集與推播
 
----
+情報站控制台觸發爬蟲、排程、重建 RAG。YouTube Data API v3 看留言情感。Discord 每 30 分鐘增量爬取，雙層篩選後寫入 `NewsData`，並可推到伺服器頻道。
 
-## ✨ 功能總覽
+</td>
+</tr>
+</table>
 
-### 🏠 首頁與內容展示
+| 還有這些 | 為什麼這樣做 |
+| --- | --- |
+| **六個來源、同一契約** | 巴哈、Bilibili BWIKI、ETtoday、UDN、Gamme、YouTube 都進 `data/raw` → `data/processed` → ORM，欄位名稱不亂改。 |
+| **雙主題前台** | 深色／亮色、毛玻璃卡片、紫金語意色票；VRM 角色可在側邊問問題。 |
+| **本機或 Docker** | 沒設 `DJANGO_DB_ENGINE=postgres` 就用 SQLite；Compose 自動換成 PostgreSQL。 |
+| **控制台一次看健康度** | `/crawler-admin/` 顯示筆數、YouTube 配額、Discord 狀態、FAISS 索引是否存在。 |
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **AI 新聞精選首頁** | `/` | AI 生成新聞封面橫幅、毛玻璃卡片、平台功能導覽 |
-| **賽馬娘人氣列表** | `/popularity-list/` | 角色人氣排行、多角色評論聲量折線圖 PK |
-| **平台介紹頁** | `/introduction/` | 技術架構、資料來源、功能截圖完整說明 |
-| **課程技術說明** | `/course/` | w12–w16 課程核心技術對照說明 |
+完整路由與套件版本收在下方〈技術細節〉，規格在 [`SPEC/`](SPEC/INTENT_SPEC.md)。
 
-### 📊 輿情分析
+## 示範
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **關鍵字聲量分析** | `/userkeyword/` | 自訂關鍵詞在各類別的出現次數與時間趨勢 |
-| **全文關聯分析** | `/userkeyword_assoc/` | 關鍵詞共現關係視覺化 |
-| **關鍵詞情感分析** | `/userkeyword_senti/` | 特定詞彙正/負/中性情感分布折線圖 |
-| **全文 DB 搜尋** | `/userkeyword_db/` | ORM 全文檢索公告文章 |
-| **熱門關鍵詞排行** | `/uma_top_keyword/` | 5 大類別 Top-K 高頻詞橫式長條圖 |
-| **熱門角色排行** | `/uma_top_character/` | 各類公告中馬娘角色曝光排行 |
-| **關鍵詞相關性分析** | `/correlation/` | 詞頻相關係數矩陣熱力圖 |
-| **公告儀表板** | `/dashboard/` | DB 搜尋、公告詳情、情感分數視覺化 |
+畫面為本機實拍（`http://localhost:8000`）。完整 29 張見 [`docs/screenshots/`](docs/screenshots/)。
 
-### 🧠 AI 分析報告
+<p align="center">
+  <img src="docs/screenshots/screenshot-01.png" alt="首頁：AI 生成新聞精選與 VRM 助理" width="720">
+</p>
+<p align="center"><sub>首頁 AI 新聞精選。右側為成田路 VRM 助理，可直接問站內資料。</sub></p>
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **雙模型 AI 報告** | `/userkeyword_report/` | Gemini 3.5 Flash / Claude Sonnet 4.6 自選，生成 500 字+ Markdown 報告 |
-| **留言情感儀表板** | `/comment_sentiment/` | APScheduler 排程分析、六維情緒圓餅圖（歡呼/開心/混亂/傻眼/憤怒/難過） |
+<p align="center">
+  <img src="docs/screenshots/screenshot-02.png" alt="賽馬娘人氣列表：角色卡片與正負評比例" width="720">
+</p>
+<p align="center"><sub>人氣列表：評論聲量與口碑比例，可多角色 PK。</sub></p>
 
-### 🤖 Agentic AI
+<p align="center">
+  <img src="docs/screenshots/screenshot-05.png" alt="關鍵詞情緒分析：圓餅圖與每日正負面折線" width="720">
+</p>
+<p align="center"><sub>關鍵詞情緒：圓餅分布 + 每日正負面折線，可篩類別與週數。</sub></p>
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **馬娘 Agentic 助理** | `/agent/` | 6 種 Function Calling，自然語言多輪問答 |
-| **RAG 知識庫問答** | `/rag/` | FAISS 持久索引，PDF/MD 上傳，含引用來源回答 |
-| **Agentic RAG** | `/rag-agent/` | 語意搜尋 + DB 精確查詢雙工具自動路由 |
-| **LangChain ReAct Agent** | `/langchain-agent/` | Thought → Action → Observation 推理迴圈展示 |
-| **LangGraph StateGraph Agent** | `/langgraph-agent/` | StateGraph 多步驟複雜 Agent 框架展示 |
+<p align="center">
+  <img src="docs/screenshots/screenshot-12.png" alt="情報站控制台：Pipeline 分步執行" width="720">
+</p>
+<p align="center"><sub>情報站 Pipeline：重爬、前處理、情感標記、匯入 Discord／YouTube，可分步勾選。</sub></p>
 
-### 📺 多平台整合
+<p align="center">
+  <img src="docs/screenshots/screenshot-23.png" alt="UMA Info Portal 登陸頁" width="720">
+</p>
+<p align="center"><sub>UMA Info Portal：用 Discord OAuth 管理要推播的伺服器與頻道。</sub></p>
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **YouTube 影片情感** | `/youtube/` | YouTube Data API v3，影片留言情感 + 週聲量趨勢 |
-| **Discord Bot** | `/discord/` | 每 30 分鐘爬取 → 雙層 AI 篩選 → 每日 08:00 彙整推播 |
-| **UMA Info Portal** | `/uma-info/` | 官網資訊整合頁 |
+<details>
+<summary>更多畫面</summary>
 
-### ⚙️ 管理控制台
+| 檔案 | 畫面 |
+| --- | --- |
+| [screenshot-08](docs/screenshots/screenshot-08.png) | 各類別熱門關鍵詞長條圖 |
+| [screenshot-15](docs/screenshots/screenshot-15.png) | 爬蟲 Cron 排程 |
+| [screenshot-18](docs/screenshots/screenshot-18.png) | Discord Bot 管理（訊息量與頻道設定） |
 
-| 功能 | 路由 | 說明 |
-|------|------|------|
-| **情報站控制台** | `/crawler-admin/` | 健康儀表板、爬蟲觸發、RAG 重建、Discord 推播管理 |
-| **Django Admin** | `/admin/` | ORM 後台管理 |
+</details>
 
----
+## 架構
 
-## 🏗️ 技術架構
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        使用者 / Discord                          │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │ HTTP / Discord Gateway
-┌──────────────────────────────▼──────────────────────────────────┐
-│                    Nginx（反向代理 + 靜態檔服務）                  │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │
-          ┌────────────────────┴────────────────────┐
-          │                                          │
-┌─────────▼────────┐                      ┌─────────▼────────┐
-│   Django + Gunicorn                      │   Discord Bot     │
-│   (app_*/views)                          │   discord.py 2.4  │
-│                                          │   APScheduler     │
-│  ┌─────────────┐  ┌─────────────┐        │   自動新聞推播     │
-│  │ RAG (FAISS) │  │ AI Agents   │        └─────────┬────────┘
-│  │ 向量索引持久  │  │ LangChain   │                  │
-│  │ 化 (./data) │  │ LangGraph   │                  │
-│  └─────────────┘  └─────────────┘                  │
-│                                                     │
-│  ┌──────────────────────────────────────────────┐   │
-│  │              AI API Layer                    │   │
-│  │  Google Gemini 3.5 Flash (文字/報告/篩選)     │   │
-│  │  Gemini 3.1 Flash Image  (封面圖生成)         │   │
-│  │  Anthropic Claude Sonnet 4.6 (分析報告)      │   │
-│  └──────────────────────────────────────────────┘   │
-│                                                     │
-└────────────────────────┬────────────────────────────┘
-                         │ Django ORM
-┌────────────────────────▼────────────────────────────┐
-│                   SQLite / data/                     │
-│   GameAnnouncement | Article | PlayerComment         │
-│   GeneratedNewsArticle | DiscordNewsLog | ...        │
-└─────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+  U[瀏覽器] --> N[Nginx]
+  D[Discord] --> B[discord-bot]
+  N --> W[Django + Gunicorn]
+  W --> DB[(SQLite 或 PostgreSQL 16)]
+  B --> DB
+  W --> LLM[Gemini 3.5 Flash<br/>Claude Sonnet 4.6]
+  W --> F[FAISS 索引]
+  P[pipeline/ 爬蟲] --> R[data/raw]
+  R --> C[data/processed]
+  C --> DB
 ```
 
-### 資料流程
+瀏覽器只打 HTTP；Bot 走 Discord Gateway。兩者共用 Django ORM，不另開一條寫入 API。AI 金鑰只從根目錄 `.env` 讀。
 
-```
-[爬蟲] → data/raw/ → [前處理 Pipeline] → data/processed/
-           │                                      │
-           └──────────────────────────────────────┤
-                                                  ▼
-                                         Django ORM (SQLite)
-                                                  │
-                                    ┌─────────────┴────────────┐
-                                    ▼                          ▼
-                             [輿情分析模組]              [AI 報告模組]
-                             聲量/情感/關聯              Gemini/Claude
-                                    │                          │
-                                    └─────────────┬────────────┘
-                                                  ▼
-                                          前端視覺化呈現
-                                    (Chart.js / Three.js)
-```
+模組怎麼分、資料表與 FAISS 路徑見 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
----
+## 安裝
 
-## 🛠️ 技術選型
-
-### 後端框架
-
-| 套件 | 版本 | 用途 |
-|------|------|------|
-| Django | `5.2 LTS` | Web 框架（支援至 2028-04） |
-| Gunicorn | `≥23.0` | WSGI 伺服器 |
-| WhiteNoise | `≥6.7` | 靜態檔服務 |
-| APScheduler | `3.11.2` | 排程任務管理 |
-| django-apscheduler | `0.7.0` | Django 整合 |
-
-### AI / LLM
-
-| 套件 | 版本 | 用途 |
-|------|------|------|
-| google-genai | `2.9.0` | Gemini 3.5 Flash 文字 / 3.1 Flash Image 圖片生成 |
-| anthropic | `0.111.0` | Claude Sonnet 4.6 分析報告 |
-| openai | `≥1.50.0` | Gemini OpenAI 相容端點 |
-| langchain | `≥1.3.0` | ReAct Agent 框架 |
-| langchain-google-genai | `≥4.2.0` | LangChain × Gemini 整合 |
-| langgraph | `≥0.2.0` | StateGraph Agentic AI |
-| faiss-cpu | `1.14.2` | 向量相似度搜尋（RAG） |
-
-### 爬蟲 / 資料處理
-
-| 套件 | 版本 | 用途 |
-|------|------|------|
-| requests | `≥2.32` | HTTP 爬蟲 |
-| beautifulsoup4 | `≥4.12` | HTML 解析 |
-| selenium | `≥4.20` | 動態頁面爬取 |
-| pandas | `≥2.2` | 資料處理 |
-| jieba | `≥0.42` | 中文斷詞 |
-| opencc-python-reimplemented | `≥0.1.7` | 簡繁轉換 |
-| pypdf | `≥4.0` | PDF 解析（RAG 知識庫） |
-
-### 整合與基礎建設
-
-| 套件 | 版本 | 用途 |
-|------|------|------|
-| discord.py | `2.4.0` | Discord Bot SDK |
-| python-dotenv | `≥1.0` | 環境變數管理 |
-| django-cors-headers | `≥4.3` | CORS 設定 |
-| pytz | `≥2024.1` | 時區處理 |
-
----
-
-## 📡 資料來源
-
-| # | 來源平台 | 說明 | 類型 |
-|---|----------|------|------|
-| 1 | **巴哈姆特哈啦板** `bsn=34421` | 馬娘玩家社群討論、留言 | 論壇 |
-| 2 | **Bilibili BWIKI** | 官方遊戲公告、活動資訊 | Wiki |
-| 3 | **ETtoday 遊戲新聞** | 遊戲媒體報導 | 新聞 |
-| 4 | **UDN 遊戲版** | 聯合新聞網遊戲報導 | 新聞 |
-| 5 | **Gamme 遊戲電影** | 遊戲影音媒體 | 媒體 |
-| 6 | **YouTube** | 影片留言、訂閱數、觀看趨勢 | 影音 |
-
----
-
-## 🗺️ 路由總表
-
-```
-/                          首頁 AI 新聞精選
-├── popularity-list/       賽馬娘人氣列表
-├── introduction/          平台介紹頁
-├── course/                課程技術說明
-│
-├── userkeyword/           關鍵字聲量分析
-├── userkeyword_assoc/     全文關聯分析
-├── userkeyword_senti/     關鍵詞情感分析
-├── userkeyword_db/        全文 DB 搜尋
-├── userkeyword_report/    雙模型 AI 分析報告
-│
-├── uma_top_keyword/       熱門關鍵詞排行
-├── uma_top_character/     熱門角色排行
-├── correlation/           關鍵詞相關性分析
-│
-├── dashboard/             公告列表儀表板
-├── comment_sentiment/     留言情感排程儀表板
-│
-├── agent/                 Agentic AI 馬娘助理
-├── rag/                   RAG 知識庫問答
-├── rag-agent/             Agentic RAG（雙工具）
-├── langchain-agent/       LangChain ReAct Agent
-├── langgraph-agent/       LangGraph StateGraph Agent
-│
-├── youtube/               YouTube 影片情感儀表板
-├── discord/               Discord Bot 管理
-├── uma-info/              UMA Info Portal
-│
-├── crawler-admin/         情報站控制台
-└── admin/                 Django 後台
-```
-
----
-
-## 🚀 快速啟動
-
-### 前置需求
-
-- Python **3.12+**
-- Google AI Studio API 金鑰（[取得](https://aistudio.google.com/app/apikey)）
-- Anthropic API 金鑰（[取得](https://console.anthropic.com/)）
-- Discord Bot Token（選用，[建立](https://discord.com/developers/applications)）
-
-### 安裝步驟
+需要 **Python 3.12+**。完整步驟、環境變數與 Docker 見 [docs/INSTALL.md](docs/INSTALL.md)。
 
 ```bash
-# 1. 複製專案
-git clone <repo-url>
+git clone https://github.com/Lrniey666/umamusume-information-platform.git
 cd umamusume-information-platform
-
-# 2. 建立虛擬環境
 python -m venv venv
-# Windows
-venv\Scripts\activate
-# macOS / Linux
+# Windows: venv\Scripts\activate
 source venv/bin/activate
-
-# 3. 安裝相依套件
 pip install -r requirements.txt
-
-# 4. 複製並設定環境變數
-cp .env.example .env
-# 使用編輯器填入金鑰（見下方「環境變數設定」）
-
-# 5. 建立資料庫 & 套用 Migration
+cp .env.example .env          # 填入 GEMINI_API_KEY 等
 python manage.py migrate
-
-# 6. 收集靜態檔案
-python manage.py collectstatic --noinput
-
-# 7. 啟動開發伺服器
 python manage.py runserver
 ```
 
-瀏覽 [http://127.0.0.1:8000](http://127.0.0.1:8000) 即可進入平台。
+開 [http://127.0.0.1:8000](http://127.0.0.1:8000)。
 
-### 啟動 Discord Bot（選用）
-
-```bash
-python manage.py run_discord_bot
-```
-
----
-
-## 🐳 Docker 部署
+Docker（PostgreSQL + Nginx + Bot）：
 
 ```bash
-# 建構並啟動全部服務（Django + Nginx + Discord Bot）
-docker-compose up -d --build
-
-# 查看日誌
-docker-compose logs -f web-poa
-
-# 停止服務
-docker-compose down
+docker compose up -d --build
 ```
 
-> **注意**：正式環境建議換用 PostgreSQL 以避免 SQLite 多進程寫入競爭問題。
+服務會綁在 **http://localhost/**（Nginx :80）。
 
----
+## 專案結構
 
-## 🔑 環境變數設定
-
-複製 `.env.example` 為 `.env` 並填入以下必要參數：
-
-```dotenv
-# ── Django ──────────────────────────────
-SECRET_KEY=your-django-secret-key
-DEBUG=False
-ALLOWED_HOSTS=your-domain.com,localhost
-
-# ── Google Gemini ────────────────────────
-GEMINI_API_KEY=your-gemini-api-key
-GEMINI_MODEL=gemini-3.5-flash
-GEMINI_IMAGE_MODEL=gemini-3.1-flash-image
-
-# ── Anthropic Claude ────────────────────
-ANTHROPIC_API_KEY=your-anthropic-api-key
-CLAUDE_MODEL=claude-sonnet-4-6
-
-# ── YouTube Data API ────────────────────
-YOUTUBE_API_KEY=your-youtube-api-key
-
-# ── Discord Bot ──────────────────────────
-DISCORD_BOT_TOKEN=your-discord-bot-token
-```
-
----
-
-## 📁 專案結構
-
-```
+```text
 umamusume-information-platform/
-│
-├── 📂 app_character_pk/          首頁、人氣列表
-├── 📂 app_user_keyword*/         關鍵詞分析系列（聲量/關聯/情感/DB/報告）
-├── 📂 app_uma_top_keyword/       熱門關鍵詞排行
-├── 📂 app_uma_top_character/     熱門角色排行
-│
-├── 📂 app_dashboard/             公告儀表板
-├── 📂 app_comment_sentiment/     留言情感排程
-├── 📂 app_correlation_analysis/  關鍵詞相關性
-│
-├── 📂 app_agent_uma/             Agentic AI（6 工具）
-├── 📂 app_rag_uma/               RAG + FAISS
-├── 📂 app_rag_agent/             Agentic RAG（O1）
-├── 📂 app_agent_langchain/       LangChain Agent（O2）
-├── 📂 app_agent_langgraph/       LangGraph Agent（O3）
-│
-├── 📂 app_youtube_uma/           YouTube 情感儀表板（O5）
-├── 📂 app_discord_bot/           Discord Bot 推播（D1–D8）
-├── 📂 app_uma_info_portal/       UMA Info Portal（U1–U16）
-├── 📂 app_crawler_admin/         情報站控制台
-│
-├── 📂 data/                      原始 & 前處理資料
-├── 📂 knowledge_base/            RAG 知識庫文件
-├── 📂 pipeline/                  資料處理 Pipeline 腳本
-├── 📂 scripts/                   工具腳本
-├── 📂 SPEC/                      設計規格文件
-├── 📂 plan/                      開發規劃文件
-│
-├── 📂 website_configs/           Django 設定、主路由
-├── 📂 templates/                 全站共用模板（base.html）
-├── 📂 static/                    CSS / JS 靜態資源
-├── 📂 nginx/                     Nginx 設定
-│
-├── 🐳 docker-compose.yml
-├── 📋 requirements.txt
-├── ⚙️  manage.py
-└── 🔐 .env.example
+├── app/                    Django apps（匯入名稱仍為 app_*）
+│   ├── analysis/           聲量、情感、人氣、儀表板
+│   ├── ingest/             爬蟲控制台、新聞／留言、YouTube
+│   ├── agent/              Agent、RAG、LangChain、LangGraph
+│   ├── community/          Discord Bot、UMA Info Portal
+│   ├── pages/              介紹頁、課程說明
+│   └── legacy/             未掛載的課程遺留
+├── data/                   raw / processed（契約欄位勿隨意改）
+├── knowledge_base/         RAG 文件
+├── pipeline/               離線爬蟲與前處理
+├── scripts/                匯入與生成工具
+├── services/               CSV fallback（過渡期）
+├── website_configs/        Django 設定、路由、app_layout.py
+├── templates/  static/     全站版型與靜態檔
+├── nginx/  docker-files-poa/
+├── SPEC/                   意圖／設計／任務規格
+└── docs/                   說明、截圖、Hero
 ```
 
----
+## 貢獻
 
-## 📦 版本紀錄
+請先讀 [`CONTRIBUTING.md`](CONTRIBUTING.md)。摘要：
 
-> 完整更新日誌請見 [CHANGELOG.md](./CHANGELOG.md)
+- 註解用繁體中文；變數 `snake_case`；路由 kebab-case
+- 日期 `YYYY-MM-DD`、時間 `HH:MM:SS`，台北時間
+- 改 Model 必出 migration；改契約必改爬蟲／SPEC／CHANGELOG
+- 不要提交 `.env` 或金鑰
 
-| 版本 | 日期 | 主要變更 |
-|------|------|---------|
-| `0.6.59-alpha` | 2026-06-25 | YouTube 控制台新增情感分析管理面板 |
-| `0.6.58-alpha` | 2026-06-25 | LangChain Agent 改為 tool calling，修復思考模型 500 |
-| `0.6.57-alpha` | 2026-06-25 | RAG Agent 保留 thought_signature，修復 400 錯誤 |
-| `0.6.56-alpha` | 2026-06-25 | 熱門角色/關鍵詞頁 jQuery、Chart.js 改本機靜態檔 |
-| `0.6.55-alpha` | 2026-06-25 | 新增 SQLite → Docker PostgreSQL 搬遷腳本 |
-| `0.6.54-alpha` | 2026-06-25 | 三個 Agent 頁模型改由 `UMA_CHAT_MODEL` 集中管理 |
-| `0.6.53-alpha` | 2026-06-25 | 移除 `/agent/chat/` 全頁，改由 VRM widget 取代 |
-| `0.6.52-alpha` | 2026-06-25 | Agent 頁淺色主題修復 + `/rag/` 查詢 500 防護 |
-| `0.6.51-alpha` | 2026-06-25 | YouTube 儀表板情感趨勢圖篩選與空值修復 |
-| `0.6.47-alpha` | 2026-06-25 | Docker 改 PostgreSQL + Discord Bot entrypoint 修正 |
+英式英文：[docs/CONTRIBUTING.en-GB.md](docs/CONTRIBUTING.en-GB.md)
+
+## 授權
+
+程式碼以 [MIT](LICENSE) 授權。
+
+**賽馬娘 Pretty Derby** 及相關角色、標誌為 **Cygames, Inc.** 之商標與著作。本專案為課程／粉絲向資訊站，**與官方無關、非商業授權**。截圖中的角色立繪與 VRM 僅供本機展示，請勿再發行遊戲素材。
 
 ---
 
-## 🗂️ 規格文件
+<details>
+<summary><strong>技術細節</strong>（套件、路由、環境變數、規格）</summary>
+
+### 技術選型
+
+| 層 | 採用 |
+| --- | --- |
+| Web | Django 5.2.15 LTS、Gunicorn ≥23、WhiteNoise、Bootstrap 5 |
+| 資料庫 | 本機 SQLite；Compose 用 PostgreSQL 16（`psycopg`） |
+| AI | `google-genai` 2.9.0（Gemini 3.5 Flash／圖片）、Anthropic 0.111.0（Claude Sonnet 4.6） |
+| RAG | faiss-cpu 1.14.2、`gemini-embedding-001` |
+| Agent | LangChain ≥1.3、LangGraph ≥0.2 |
+| 排程 | APScheduler 3.11.2（4.x 仍為 alpha，不用） |
+| Bot | discord.py 2.4.0 |
+| 爬蟲 | requests、Beautiful Soup、jieba、OpenCC |
+
+版本查證基準：2026-06-22（見 `SPEC/DESIGN_SPEC.md` §0）。`gemini-2.0-flash` 已停服；不要用已棄用的 `google-generativeai`。
+
+### 路由總表
+
+```text
+/                          首頁 AI 新聞
+/popularity-list/          人氣列表
+/introduction/             平台介紹
+/course/                   課程技術說明
+/userkeyword/              關鍵字聲量
+/userkeyword_assoc/        全文關聯
+/userkeyword_senti/        關鍵詞情感
+/userkeyword_db/           ORM 全文搜尋
+/userkeyword_report/       雙模型 AI 報告
+/uma_top_keyword/          熱門關鍵詞
+/uma_top_character/        熱門角色
+/correlation/              相關性熱力圖
+/dashboard/                公告儀表板
+/comment_sentiment/        留言情感排程
+/agent/                    Function Calling 助理
+/rag/                      RAG 問答
+/rag-agent/                Agentic RAG
+/langchain-agent/          LangChain Agent
+/langgraph-agent/          LangGraph Agent
+/youtube/                  YouTube 情感
+/discord/                  Discord 儀表板
+/uma-info/                 UMA Info Portal
+/crawler-admin/            情報站控制台
+/admin/                    Django Admin
+```
+
+### 環境變數（節錄）
+
+複製 [`.env.example`](.env.example) 為 `.env`。至少需要：
+
+| 變數 | 用途 |
+| --- | --- |
+| `DJANGO_SECRET_KEY` | Django 密鑰 |
+| `GEMINI_API_KEY` | 報告、Agent、情感標記、RAG |
+| `ANTHROPIC_API_KEY` | Claude 報告（可選） |
+| `YOUTUBE_API_KEY` | YouTube 儀表板（可選） |
+| `DISCORD_BOT_TOKEN` | Bot（可選） |
+
+完整清單與 Docker 資料庫變數見 [docs/INSTALL.md](docs/INSTALL.md)。
+
+### 規格與紀錄
 
 | 文件 | 說明 |
-|------|------|
-| [`SPEC/INTENT_SPEC.md`](./SPEC/INTENT_SPEC.md) | 意圖規格：為什麼做、做什麼、使用者場景 |
-| [`SPEC/DESIGN_SPEC.md`](./SPEC/DESIGN_SPEC.md) | 設計規格：UI/UX 設計系統、各模組介面規格 |
-| [`SPEC/TASK_SPEC.md`](./SPEC/TASK_SPEC.md) | 任務規格：功能清單、驗收標準 |
-| [`PROJECT_AUDIT.md`](./PROJECT_AUDIT.md) | 專案健檢報告：安全性、技術債、優化建議 |
-| [`CHANGELOG.md`](./CHANGELOG.md) | 完整版本變更紀錄 |
+| --- | --- |
+| [SPEC/INTENT_SPEC.md](SPEC/INTENT_SPEC.md) | 為什麼做、使用者場景 |
+| [SPEC/DESIGN_SPEC.md](SPEC/DESIGN_SPEC.md) | 架構、資料契約、畫面 |
+| [SPEC/TASK_SPEC.md](SPEC/TASK_SPEC.md) | 任務與驗收 |
+| [CHANGELOG.md](CHANGELOG.md) | 版本紀錄（Keep a Changelog） |
 
----
+</details>
 
-## 🎨 設計規範
-
-- **主題切換**：深色 / 亮色雙主題，`data-bs-theme` 切換
-- **毛玻璃卡片**：`backdrop-filter: blur(16px)`
-- **語意 CSS Token**：`--color-accent`、`--color-gold`、`--color-border`
-- **漸層文字標題**：品牌紫金配色
-- **RWD**：Bootstrap 5 響應式佈局，手機優先
-- **無障礙**：WCAG 對比度規範
-
----
-
-<div align="center">
-
-**賽馬娘資訊平台** — 以 AI 之力，追蹤馬娘社群脈動
-
-<sub>Built with ❤️ using Django · Gemini · Claude · LangChain · LangGraph · Discord.py</sub>
-
-</div>
+<p align="center">
+  <sub>以 AI 追蹤馬娘社群脈動 · Django · Gemini · Claude · LangChain · Discord.py</sub>
+</p>

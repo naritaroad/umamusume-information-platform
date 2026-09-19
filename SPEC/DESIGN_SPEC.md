@@ -82,7 +82,7 @@
 │  │ Claude API  │    │  YouTubeVideo/Comment  DiscordMessage        │   │
 │  │(anthropic   │    │  DiscordBotConfig  DiscordNewsLog            │   │
 │  │ 0.111.0)    │    └────────────────────────────────────────────┘   │
-│  ├─────────────┤    FAISS Index (app_rag_uma/index/)                  │
+│  ├─────────────┤    FAISS Index (app/agent/app_rag_uma/index/)            │
 │  │ YouTube API │    knowledge_base/（RAG + Agent 本地知識）            │
 │  │(Data v3)    │                                                      │
 │  └─────────────┘                                                      │
@@ -167,9 +167,10 @@ umamusume-information-platform/
 │   └── ...                           ← 可持續新增
 │
 ├── website_configs/
-│   ├── settings.py                   ← Django 設定
+│   ├── settings.py                   ← Django 設定（啟動時註冊 app/<module>/ 至 sys.path）
 │   ├── urls.py                       ← 根路由
-│   └── wsgi.py
+│   ├── wsgi.py
+│   └── app_layout.py                 ← Django app 實體目錄對照
 │
 ├── templates/
 │   └── base.html                     ← 全站基底（雙主題設計系統）
@@ -177,64 +178,44 @@ umamusume-information-platform/
 ├── static/
 │   └── css/, js/, img/               ← 靜態檔案（collectstatic 輸出）
 │
-├── app_character_pk/                 ← 首頁（AI新聞精選 + 平台簡介）+ /popularity-list/（人氣列表）
-├── app_user_keyword/                 ← 關鍵字聲量分析（CSV）
-├── app_user_keyword_association/     ← 全文關聯分析
-├── app_user_keyword_sentiment/       ← 情感分析（CSV）
-├── app_user_keyword_db/              ← ORM 全文搜尋
-├── app_user_keyword_llm_report/      ← 雙模型 AI 分析報告（核心）
-├── app_comment_sentiment/            ← 巴哈留言情感儀表板 + 排程（C1 補頁面）
-├── app_uma_top_keyword/              ← 各類別熱門關鍵詞
-├── app_uma_top_character/            ← 各類別熱門角色排行
-├── app_agent_uma/                    ← Agentic AI 馬娘助理
-│   ├── agent_core/
-│   │   └── tools.py                  ← 6 種工具函數（含 read_local_document）
-│   └── 第一階段說明.md
-├── app_rag_uma/                      ← RAG 馬娘知識庫
-│   ├── build_index.py                ← H1：預建 FAISS 索引腳本
-│   └── index/
-│       ├── uma_knowledge.faiss       ← 預建持久化索引
-│       └── uma_knowledge_texts.pkl   ← chunk 文字 + metadata
-├── app_poa_introduction/             ← 平台介紹頁
-├── app_correlation_analysis/         ← 關鍵詞相關性分析
-├── app_crawler_admin/                ← 情報站控制台（原爬蟲後台，含 YouTube/Discord/RAG 管理）
-│   ├── views.py                      ← 控制台主視圖 + YouTube/Discord/RAG/Pipeline 子視圖
-│   ├── urls.py
-│   └── templates/app_crawler_admin/
-│       ├── dashboard.html            ← 控制台首頁（Platform Health Dashboard）
-│       ├── youtube.html              ← YouTube API 配額管理頁
-│       ├── discord.html              ← Discord Bot 管理頁
-│       ├── rag.html                  ← RAG 知識庫管理頁
-│       └── pipeline.html             ← 爬蟲 Pipeline 一鍵執行頁
-├── app_uma_news/                     ← 遊戲公告資料模型
-├── app_uma_comments/                 ← 巴哈留言資料模型
-├── app_dashboard/                    ← 公告列表儀表板
-├── app_rag_agent/                    ← Agentic RAG（O1）
-├── app_agent_langchain/              ← LangChain ReAct Agent（O2）
-├── app_agent_langgraph/              ← LangGraph 狀態圖 Agent（O3）
-│   └── graph_core/
-│       ├── state.py                  ← AgentState
-│       └── graph_agent.py            ← build_graph()
-├── app_course_intro/                 ← 課程技術說明頁（O4）
-├── app_youtube_uma/                  ← YouTube 影片情感儀表板（O5）
-│   ├── models.py                     ← YouTubeVideo / YouTubeComment
-│   ├── views.py
-│   ├── urls.py
-│   ├── jobs.py                       ← APScheduler 任務
-│   └── management/commands/
-│       └── crawl_youtube.py
-└── app_discord_bot/                  ← Discord Bot 自動新聞推播（D1-D8）
-    ├── models.py                     ← DiscordMessage / DiscordBotConfig / DiscordNewsLog
-    ├── admin.py
-    ├── crawler.py                    ← 頻道歷史增量爬取
-    ├── classifier.py                 ← 雙層馬娘主題篩選
-    ├── converter.py                  ← DiscordMessage → NewsData
-    ├── news_generator.py             ← AI 新聞生成
-    ├── scheduler.py                  ← APScheduler 5 個排程
-    ├── views.py                      ← Bot 管理儀表板
-    ├── urls.py
-    └── management/commands/
-        └── run_discord_bot.py        ← python manage.py run_discord_bot
+├── app/                              ← 所有 Django apps（Python 匯入名稱仍為 app_*）
+│   ├── analysis/                     ← 輿情分析、關鍵字、人氣、儀表板
+│   │   ├── app_character_pk/         ← 首頁（AI新聞精選 + 平台簡介）+ /popularity-list/
+│   │   ├── app_user_keyword/         ← 關鍵字聲量分析（CSV）
+│   │   ├── app_user_keyword_association/
+│   │   ├── app_user_keyword_sentiment/
+│   │   ├── app_user_keyword_db/      ← ORM 全文搜尋
+│   │   ├── app_user_keyword_llm_report/
+│   │   ├── app_uma_top_keyword/
+│   │   ├── app_uma_top_character/
+│   │   ├── app_correlation_analysis/
+│   │   └── app_dashboard/
+│   ├── ingest/                       ← 資料採集與控制台
+│   │   ├── app_crawler_admin/        ← 情報站控制台
+│   │   ├── app_uma_news/
+│   │   ├── app_uma_comments/
+│   │   ├── app_comment_sentiment/
+│   │   └── app_youtube_uma/
+│   ├── agent/                        ← Agentic AI / RAG
+│   │   ├── app_agent_uma/
+│   │   │   └── agent_core/tools.py   ← 6 種工具函數
+│   │   ├── app_rag_uma/
+│   │   │   ├── build_index.py
+│   │   │   └── index/                ← FAISS 持久化索引
+│   │   ├── app_rag_agent/
+│   │   ├── app_agent_langchain/
+│   │   └── app_agent_langgraph/
+│   ├── community/                    ← 社群整合
+│   │   ├── app_discord_bot/
+│   │   └── app_uma_info_portal/
+│   ├── pages/                        ← 介紹頁
+│   │   ├── app_poa_introduction/
+│   │   └── app_course_intro/
+│   └── legacy/                       ← 課程遺留、未掛載於 INSTALLED_APPS
+│
+├── docs/                             ← 繁中／英式英文說明、截圖、Hero、論文
+├── scripts/                          ← 資料匯入與生成工具
+└── services/                         ← 共用 CSV 載入（過渡期 fallback）
 ```
 
 ---
@@ -664,8 +645,8 @@ chunks[]
 FAISS IndexFlatIP
   │ faiss.write_index()
   ▼
-app_rag_uma/index/uma_knowledge.faiss（持久化）
-app_rag_uma/index/uma_knowledge_texts.pkl（chunk 文字 + 來源 metadata）
+app/agent/app_rag_uma/index/uma_knowledge.faiss（持久化）
+app/agent/app_rag_uma/index/uma_knowledge_texts.pkl（chunk 文字 + 來源 metadata）
 ```
 
 ### 8.2 啟動時預載索引（M3：views.py 修改）
@@ -1060,8 +1041,8 @@ if [ "$COUNT" = "0" ]; then
 fi
 
 # 建立 RAG 索引（如果不存在）
-if [ ! -f "app_rag_uma/index/uma_knowledge.faiss" ]; then
-    python app_rag_uma/build_index.py || echo "RAG 索引建立失敗（跳過）"
+if [ ! -f "app/agent/app_rag_uma/index/uma_knowledge.faiss" ]; then
+    python app/agent/app_rag_uma/build_index.py || echo "RAG 索引建立失敗（跳過）"
 fi
 
 exec gunicorn website_configs.wsgi:application \
@@ -1522,7 +1503,7 @@ Response: {"logs": [{"generated_at": "...", "status": "sent", "source_count": 15
 | 5 爬蟲來源狀態 | 最後執行時間 + 成功/失敗次數 + 即時執行按鈕 | `CrawlerRun` 模型 |
 | YouTube API 配額 | 今日已用 / 10,000 units 進度條 | `YouTubeQuotaLog` 模型 |
 | Discord Bot 狀態 | 在線/離線、最後爬取時間、今日新聞推播次數 | `DiscordNewsLog` 模型 |
-| RAG 索引狀態 | 索引存在 Y/N、向量數量、最後建立時間 | 讀取 `app_rag_uma/index/uma_knowledge.faiss` |
+| RAG 索引狀態 | 索引存在 Y/N、向量數量、最後建立時間 | 讀取 `app/agent/app_rag_uma/index/uma_knowledge.faiss` |
 | 快速操作入口 | Pipeline 一鍵執行、Discord Bot 啟動/停止、RAG 重建索引按鈕 | AJAX POST |
 
 **Navbar 新增入口：**
@@ -1617,7 +1598,7 @@ Response: {"status": "started", "estimated_at": "2026-06-23T15:30:00"}
 | 功能 | 說明 |
 |------|------|
 | E1：索引狀態顯示 | FAISS 索引存在 Y/N、向量數量、最後建立時間、索引大小（KB/MB） |
-| E2：一鍵重建索引 | AJAX 呼叫 `python app_rag_uma/build_index.py`，顯示進度 log |
+| E2：一鍵重建索引 | AJAX 呼叫 `python app/agent/app_rag_uma/build_index.py`，顯示進度 log |
 | 知識庫文件列表 | 顯示 `knowledge_base/` 下所有 `.md` 文件及大小 |
 | 上傳知識庫文件 | 直接從管理頁上傳 `.md` / `.txt` 文件到 `knowledge_base/` |
 
@@ -1831,7 +1812,7 @@ crawl_{bilibili,bahamut,ettoday,udn,gamme}_uma.py
       → 多工具輪呼 → 自然語言答案
 
 /rag/
-  └── 啟動時載入預建 FAISS 索引（app_rag_uma/index/）
+  └── 啟動時載入預建 FAISS 索引（app/agent/app_rag_uma/index/）
   └── gemini-embedding-001 → FAISS 相似搜尋 → Gemini 3.5 Flash 生成答案
   └── 使用者上傳 PDF → 疊加到現有索引
 

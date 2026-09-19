@@ -21,6 +21,37 @@ Security (安全)：安全性漏洞的修復。
 
 －－－
 
+
+## [0.6.61-alpha] - 2026-09-19
+
+### Changed
+- **對外說明改為 Hero 式雙語 README，並拆檔避免單篇過長**
+  - 變更目的：原 `README.md` 把功能表、套件表、路由、安裝、結構全堆在一篇，不便掃讀，也沒有英式英文對照與授權聲明。
+  - 主要影響範圍：
+    - 根目錄 `README.md`：繁體中文 Hero、徽章、語言切換、功能、示範截圖、架構摘要、安裝摘要；技術選型／路由／環境變數收入 `<details>`。
+    - `docs/README.en-GB.md`：同一結構的英式英文。
+    - `docs/INSTALL.md`、`docs/INSTALL.en-GB.md`、`docs/ARCHITECTURE.md`、`docs/ARCHITECTURE.en-GB.md`、`docs/README.md`（文件索引）。
+    - `CONTRIBUTING.md`、`docs/CONTRIBUTING.en-GB.md`、`LICENSE`（MIT）、`docs/assets/hero.svg`。
+  - 驗收方式：從 GitHub／編輯器打開 `README.md`，徽章與 Hero 可見，點「English (UK)」進得了 `docs/README.en-GB.md`；示範圖能顯示；`<details>` 可展開；安裝指令與 `docs/INSTALL.md` 一致。
+
+## [0.6.60-alpha] - 2026-09-19
+
+### Changed
+- **根目錄整理：Django apps 收入 `app/<module>/`**
+  - 變更目的：根目錄原本平鋪 30 個 `app_*` 套件與論文/展示/參考資料，難以辨識專案骨架；改成依功能模組分夾，並把本機雜項移出根目錄。
+  - 主要影響範圍：
+    - 新增 `website_configs/app_layout.py`：對照表 + `register_app_paths()`，`INSTALLED_APPS` / migrations / `app_label` 維持 `app_*`。
+    - `app/analysis/`：關鍵字、人氣 PK、儀表板。
+    - `app/ingest/`：爬蟲控制台、新聞/留言、YouTube。
+    - `app/agent/`：Agent / RAG / LangChain / LangGraph。
+    - `app/community/`：Discord Bot、UMA Info Portal。
+    - `app/pages/`：介紹頁。
+    - `app/legacy/`：未掛載的課程遺留 apps。
+    - `docs/`：截圖、論文 docx、補充文件；`scripts/` 收錄 `generate_word.py`、`sort_refs.py`。
+    - `local/`（gitignore）：參考專案、圖集、計劃書、展示 HTML、VRM dump。
+    - 檔案系統路徑改走 `django_app_dir()` / `Path(__file__)`，避免再假設套件在根目錄。
+  - 驗收方式：`python manage.py check` 無錯誤；`from app_user_keyword_db.models import NewsData` 仍可匯入；RAG 索引可從 `app/agent/app_rag_uma/index/` 載入。
+
 ## [0.6.59-alpha] - 2026-06-25
 
 ### Added

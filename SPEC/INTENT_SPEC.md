@@ -162,7 +162,7 @@ Discord 伺服器管理員設定 Bot Token 與監聽頻道後，Bot 每 30 分�
 - [ ] Bahamut 原始 5,951 筆中至少 500 筆入庫（現況僅 91 筆）
 - [ ] UDN（191 筆 raw）與 Gamme 完全進入分析管線（現況 0 筆）
 - [ ] `knowledge_base/` 目錄存在且含 ≥ 1 份馬娘知識文件（`.md` 或 `.txt`）
-- [ ] `app_rag_uma/index/uma_knowledge.faiss` 預建索引存在
+- [ ] `app/agent/app_rag_uma/index/uma_knowledge.faiss` 預建索引存在
 
 ### 部署與品質
 

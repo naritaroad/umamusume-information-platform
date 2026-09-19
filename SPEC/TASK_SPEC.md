@@ -871,9 +871,9 @@ if [ "$COUNT" = "0" ]; then
     python scripts/generate_top_character_csv.py
 fi
 
-if [ ! -f "app_rag_uma/index/uma_knowledge.faiss" ]; then
+if [ ! -f "app/agent/app_rag_uma/index/uma_knowledge.faiss" ]; then
     echo "建立 RAG 知識庫索引..."
-    python app_rag_uma/build_index.py || echo "RAG 索引建立失敗（跳過）"
+    python app/agent/app_rag_uma/build_index.py || echo "RAG 索引建立失敗（跳過）"
 fi
 
 exec gunicorn website_configs.wsgi:application \

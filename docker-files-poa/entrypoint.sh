@@ -59,9 +59,9 @@ fi
 # [4/6] 建立 RAG 知識庫索引（H1/M2 新增）
 # ─────────────────────────────────────────
 echo "[4/6] 檢查 RAG 知識庫索引..."
-if [ ! -f "app_rag_uma/index/uma_knowledge.faiss" ]; then
+if [ ! -f "app/agent/app_rag_uma/index/uma_knowledge.faiss" ]; then
     echo "  索引不存在，開始建立..."
-    python app_rag_uma/build_index.py || echo "  [warn] RAG 索引建立失敗（跳過，不影響啟動）"
+    python app/agent/app_rag_uma/build_index.py || echo "  [warn] RAG 索引建立失敗（跳過，不影響啟動）"
 else
     echo "  RAG 索引已存在，跳過"
 fi

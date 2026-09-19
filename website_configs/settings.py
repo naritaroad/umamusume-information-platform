@@ -1,13 +1,17 @@
 import os
 import json
 from dotenv import load_dotenv
-from pathlib import Path
+
+from .app_layout import PROJECT_ROOT, register_app_paths
+
+# 讓 app/<module>/app_* 仍可以原本的套件名稱匯入
+register_app_paths()
 
 # 明確指定專案根目錄的 .env，避免被父層目錄的 .env 覆蓋
-_ENV_FILE = Path(__file__).resolve().parent.parent / '.env'
+_ENV_FILE = PROJECT_ROOT / '.env'
 load_dotenv(_ENV_FILE, override=True)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = PROJECT_ROOT
 
 # ─────────────────────────────────────
 # 安全設定
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     # 第三方
     'corsheaders',
     'django_apscheduler',
+    # Django apps 實體目錄在 app/<module>/，匯入名稱仍為 app_*
     # ── 主線 Apps（from w12）──
     'app_character_pk',
     'app_user_keyword',
