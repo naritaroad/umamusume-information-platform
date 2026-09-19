@@ -1,21 +1,21 @@
-<p align="center">
+<div align="center">
   <a href="#readme"><img alt="繁體中文" src="https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-c9a027?style=for-the-badge&labelColor=2a1848"></a>
   <a href="docs/README.en-GB.md"><img alt="English (UK)" src="https://img.shields.io/badge/English%20(UK)-7c4dff?style=for-the-badge&labelColor=2a1848"></a>
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <img src="docs/assets/hero.svg" alt="Uma Musume Information Platform" width="760">
-</p>
+</div>
 
 <h1 align="center">賽馬娘資訊平台</h1>
 
-<p align="center">
+<div align="center">
   <strong>Uma Musume Information Platform</strong><br>
   把馬娘社群討論收成可查、可畫、可問的輿情系統。<br>
   爬蟲進庫、雙模型寫報告、Agent 回答、Discord 每天推播。
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <img alt="version" src="https://img.shields.io/badge/version-0.6.61--alpha-c9a027?style=flat-square&labelColor=2a1848">
   <img alt="python" src="https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white">
   <img alt="django" src="https://img.shields.io/badge/django-5.2%20LTS-092E20?style=flat-square&logo=django&logoColor=white">
@@ -23,9 +23,9 @@
   <img alt="docker" src="https://img.shields.io/badge/docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white">
   <img alt="locale" src="https://img.shields.io/badge/locale-zh--Hant%20%2F%20en--GB-c9a027?style=flat-square&labelColor=2a1848">
   <img alt="licence" src="https://img.shields.io/badge/licence-MIT-6a35b4?style=flat-square&labelColor=2a1848">
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <a href="#功能">功能</a> ·
   <a href="#示範">示範</a> ·
   <a href="#架構">架構</a> ·
@@ -34,7 +34,7 @@
   <a href="#貢獻">貢獻</a> ·
   <a href="#授權">授權</a> ·
   <a href="docs/README.md">文件索引</a>
-</p>
+</div>
 
 ---
 
@@ -85,30 +85,30 @@ Gemini 3.5 Flash 或 Claude Sonnet 4.6 寫 500 字以上繁中報告。另有 Fu
 
 畫面為本機實拍（`http://localhost:8000`）。完整 29 張見 [`docs/screenshots/`](docs/screenshots/)。
 
-<p align="center">
+<div align="center">
   <img src="docs/screenshots/screenshot-01.png" alt="首頁：AI 生成新聞精選與 VRM 助理" width="720">
-</p>
-<p align="center"><sub>首頁 AI 新聞精選。右側為成田路 VRM 助理，可直接問站內資料。</sub></p>
+</div>
+<div align="center"><sub>首頁 AI 新聞精選。右側為成田路 VRM 助理，可直接問站內資料。</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="docs/screenshots/screenshot-02.png" alt="賽馬娘人氣列表：角色卡片與正負評比例" width="720">
-</p>
-<p align="center"><sub>人氣列表：評論聲量與口碑比例，可多角色 PK。</sub></p>
+</div>
+<div align="center"><sub>人氣列表：評論聲量與口碑比例，可多角色 PK。</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="docs/screenshots/screenshot-05.png" alt="關鍵詞情緒分析：圓餅圖與每日正負面折線" width="720">
-</p>
-<p align="center"><sub>關鍵詞情緒：圓餅分布 + 每日正負面折線，可篩類別與週數。</sub></p>
+</div>
+<div align="center"><sub>關鍵詞情緒：圓餅分布 + 每日正負面折線，可篩類別與週數。</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="docs/screenshots/screenshot-12.png" alt="情報站控制台：Pipeline 分步執行" width="720">
-</p>
-<p align="center"><sub>情報站 Pipeline：重爬、前處理、情感標記、匯入 Discord／YouTube，可分步勾選。</sub></p>
+</div>
+<div align="center"><sub>情報站 Pipeline：重爬、前處理、情感標記、匯入 Discord／YouTube，可分步勾選。</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="docs/screenshots/screenshot-23.png" alt="UMA Info Portal 登陸頁" width="720">
-</p>
-<p align="center"><sub>UMA Info Portal：用 Discord OAuth 管理要推播的伺服器與頻道。</sub></p>
+</div>
+<div align="center"><sub>UMA Info Portal：用 Discord OAuth 管理要推播的伺服器與頻道。</sub></div>
 
 <details>
 <summary>更多畫面</summary>
@@ -281,6 +281,6 @@ umamusume-information-platform/
 
 </details>
 
-<p align="center">
+<div align="center">
   <sub>以 AI 追蹤馬娘社群脈動 · Django · Gemini · Claude · LangChain · Discord.py</sub>
-</p>
+</div>

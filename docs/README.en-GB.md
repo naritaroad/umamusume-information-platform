@@ -1,21 +1,21 @@
-<p align="center">
+<div align="center">
   <a href="../README.md"><img alt="繁體中文" src="https://img.shields.io/badge/%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-7c4dff?style=for-the-badge&labelColor=2a1848"></a>
   <a href="#readme"><img alt="English (UK)" src="https://img.shields.io/badge/English%20(UK)-c9a027?style=for-the-badge&labelColor=2a1848"></a>
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <img src="assets/hero.svg" alt="Uma Musume Information Platform" width="760">
-</p>
+</div>
 
 <h1 align="center">Uma Musume Information Platform</h1>
 
-<p align="center">
+<div align="center">
   <strong>賽馬娘資訊平台</strong><br>
   Turn Uma Musume community talk into charts, reports, and answers.<br>
   Crawlers fill the database; two models write reports; agents answer; Discord posts a daily brief.
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <img alt="version" src="https://img.shields.io/badge/version-0.6.61--alpha-c9a027?style=flat-square&labelColor=2a1848">
   <img alt="python" src="https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white">
   <img alt="django" src="https://img.shields.io/badge/django-5.2%20LTS-092E20?style=flat-square&logo=django&logoColor=white">
@@ -23,9 +23,9 @@
   <img alt="docker" src="https://img.shields.io/badge/docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white">
   <img alt="locale" src="https://img.shields.io/badge/locale-zh--Hant%20%2F%20en--GB-c9a027?style=flat-square&labelColor=2a1848">
   <img alt="licence" src="https://img.shields.io/badge/licence-MIT-6a35b4?style=flat-square&labelColor=2a1848">
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <a href="#features">Features</a> ·
   <a href="#demo">Demo</a> ·
   <a href="#architecture">Architecture</a> ·
@@ -34,7 +34,7 @@
   <a href="#contributing">Contributing</a> ·
   <a href="#licence">Licence</a> ·
   <a href="./README.md">Docs index</a>
-</p>
+</div>
 
 ---
 
@@ -85,30 +85,30 @@ Routes and package versions sit in **Technical details** below. Specs live in [`
 
 Local captures at `http://localhost:8000`. All 29 frames: [`screenshots/`](./screenshots/).
 
-<p align="center">
+<div align="center">
   <img src="screenshots/screenshot-01.png" alt="Home page: AI news feature and VRM assistant" width="720">
-</p>
-<p align="center"><sub>Home — AI news feature. The Narita Top Road VRM assistant on the right can query in-app data.</sub></p>
+</div>
+<div align="center"><sub>Home — AI news feature. The Narita Top Road VRM assistant on the right can query in-app data.</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="screenshots/screenshot-02.png" alt="Popularity list: character cards with praise and criticism ratios" width="720">
-</p>
-<p align="center"><sub>Popularity list — comment volume and reputation mix; several characters can be compared.</sub></p>
+</div>
+<div align="center"><sub>Popularity list — comment volume and reputation mix; several characters can be compared.</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="screenshots/screenshot-05.png" alt="Keyword sentiment: pie chart and daily positive/negative lines" width="720">
-</p>
-<p align="center"><sub>Keyword sentiment — pie mix plus a daily positive/negative line; filter by category and weeks.</sub></p>
+</div>
+<div align="center"><sub>Keyword sentiment — pie mix plus a daily positive/negative line; filter by category and weeks.</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="screenshots/screenshot-12.png" alt="Intelligence console: step-by-step pipeline" width="720">
-</p>
-<p align="center"><sub>Pipeline console — recrawl, preprocess, label sentiment, import Discord / YouTube; steps can be ticked independently.</sub></p>
+</div>
+<div align="center"><sub>Pipeline console — recrawl, preprocess, label sentiment, import Discord / YouTube; steps can be ticked independently.</sub></div>
 
-<p align="center">
+<div align="center">
   <img src="screenshots/screenshot-23.png" alt="UMA Info Portal landing page" width="720">
-</p>
-<p align="center"><sub>UMA Info Portal — Discord OAuth to choose which guilds and channels receive pushes.</sub></p>
+</div>
+<div align="center"><sub>UMA Info Portal — Discord OAuth to choose which guilds and channels receive pushes.</sub></div>
 
 <details>
 <summary>More screens</summary>
@@ -279,6 +279,6 @@ Full list and Docker database variables: [INSTALL.en-GB.md](./INSTALL.en-GB.md).
 
 </details>
 
-<p align="center">
+<div align="center">
   <sub>Tracking the Uma Musume community with AI · Django · Gemini · Claude · LangChain · Discord.py</sub>
-</p>
+</div>
