@@ -10,7 +10,7 @@
 | [INSTALL.en-GB.md](./INSTALL.en-GB.md) | English (UK) | Installation |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | 繁體中文 | 拓樸、資料流、`app/` 分夾 |
 | [ARCHITECTURE.en-GB.md](./ARCHITECTURE.en-GB.md) | English (UK) | Architecture |
-| [../CONTRIBUTING.md](../CONTRIBUTING.md) | 繁體中文 | 怎麼改這個倉庫 |
+| [../CONTRIBUTING.md](../CONTRIBUTING.md) | 繁體中文 | 怎麼改這個 Repository |
 | [CONTRIBUTING.en-GB.md](./CONTRIBUTING.en-GB.md) | English (UK) | Contributing |
 | [../SPEC/INTENT_SPEC.md](../SPEC/INTENT_SPEC.md) | 繁體中文 | 意圖規格 |
 | [../SPEC/DESIGN_SPEC.md](../SPEC/DESIGN_SPEC.md) | 繁體中文 | 設計規格 |

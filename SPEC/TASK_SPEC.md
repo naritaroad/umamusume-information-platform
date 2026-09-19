@@ -127,7 +127,7 @@
 **輸出：** `umamusume-information-platform/`（工作根目錄，已有 w12 內容）
 
 **步驟：**
-1. 確認工作目錄 `umamusume-information-platform/` 已建立（即本倉庫）
+1. 確認工作目錄 `umamusume-information-platform/` 已建立（即本 Repository）
 2. 將 w12 `umamusume-llm-report/` 全部內容複製進來
    - 排除：`.venv/`、`__pycache__/`、`db.sqlite3`、`.env`
 3. 確認 `manage.py` 與 `website_configs/settings.py` 存在
