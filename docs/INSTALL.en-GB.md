@@ -9,7 +9,7 @@ Back to: [README (zh)](../README.md) · [README (en-GB)](README.en-GB.md) · [do
 ## Local development (SQLite)
 
 ```bash
-git clone https://github.com/Lrniey666/umamusume-information-platform.git
+git clone https://github.com/naritaroad/umamusume-information-platform.git
 cd umamusume-information-platform
 
 python -m venv venv

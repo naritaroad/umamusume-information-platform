@@ -146,7 +146,7 @@ flowchart LR
 需要 **Python 3.12+**。完整步驟、環境變數與 Docker 見 [docs/INSTALL.md](docs/INSTALL.md)。
 
 ```bash
-git clone https://github.com/Lrniey666/umamusume-information-platform.git
+git clone https://github.com/naritaroad/umamusume-information-platform.git
 cd umamusume-information-platform
 python -m venv venv
 # Windows: venv\Scripts\activate

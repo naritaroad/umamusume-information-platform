@@ -146,7 +146,7 @@ Module layout, tables, and the FAISS path: [ARCHITECTURE.en-GB.md](./ARCHITECTUR
 **Python 3.12+** is required. Full steps, environment variables, and Docker: [INSTALL.en-GB.md](./INSTALL.en-GB.md).
 
 ```bash
-git clone https://github.com/Lrniey666/umamusume-information-platform.git
+git clone https://github.com/naritaroad/umamusume-information-platform.git
 cd umamusume-information-platform
 python -m venv venv
 # Windows: venv\Scripts\activate

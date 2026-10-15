@@ -9,7 +9,7 @@
 ## 本機開發（SQLite）
 
 ```bash
-git clone https://github.com/Lrniey666/umamusume-information-platform.git
+git clone https://github.com/naritaroad/umamusume-information-platform.git
 cd umamusume-information-platform
 
 python -m venv venv
